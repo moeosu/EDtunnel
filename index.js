@@ -2914,7 +2914,7 @@ const ed = "RUR0dW5uZWw=";
  */
 function getConfig(userIDs, hostName, proxyIP) {
   try {
-    const commonUrlPart = `?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`;
+    const commonUrlPart = `?encryption=none&security=tls&sni=${hostName}&fp=ios&alpn=h3%2Ch2&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`;
 
     // Split the userIDs into an array
     const userIDArray = userIDs.split(",").map((id) => id.trim());
@@ -2931,18 +2931,7 @@ function getConfig(userIDs, hostName, proxyIP) {
 		  <head>
 			<title>EDtunnel: Configuration</title>
 			<meta name='viewport' content='width=device-width, initial-scale=1'>
-			<meta property='og:site_name' content='EDtunnel: Protocol Configuration' />
-			<meta property='og:type' content='website' />
-			<meta property='og:title' content='EDtunnel - Protocol Configuration and Subscribe Output' />
-			<meta property='og:description' content='Use Cloudflare Pages and Worker serverless to implement protocol' />
-			<meta property='og:url' content='https://${hostName}/' />
-			<meta property='og:image' content='https://cdn.jsdelivr.net/gh/6Kmfi6HP/EDtunnel@refs/heads/main/image/logo.png' />
-			<meta name='twitter:card' content='summary_large_image' />
-			<meta name='twitter:title' content='EDtunnel - Protocol Configuration and Subscribe Output' />
-			<meta name='twitter:description' content='Use Cloudflare Pages and Worker serverless to implement protocol' />
-			<meta name='twitter:url' content='https://${hostName}/' />
-			<meta name='twitter:image' content='https://cdn.jsdelivr.net/gh/6Kmfi6HP/EDtunnel@refs/heads/main/image/logo.png' />
-			<meta property='og:image:width' content='1500' />
+            <meta property='og:image:width' content='1500' />
 			<meta property='og:image:height' content='1500' />
 
 			<style>
@@ -3153,7 +3142,7 @@ function getConfig(userIDs, hostName, proxyIP) {
 			  const userIDArray = ${JSON.stringify(userIDArray)};
 			  const pt = "${pt}";
 			  const at = "${at}";
-			  const commonUrlPart = "?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}";
+			  const commonUrlPart = "?encryption=none&security=tls&sni=${hostName}&fp=ios&alpn=h3%2Ch2&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}";
 
 			  function copyToClipboard(text) {
 				navigator.clipboard.writeText(text)
@@ -3187,7 +3176,7 @@ function getConfig(userIDs, hostName, proxyIP) {
 }
 
 const HttpPort = new Set([80, 8080, 8880, 2052, 2086, 2095, 2082]);
-const HttpsPort = new Set([443, 8443, 2053, 2096, 2087, 2083]);
+const HttpsPort = new Set([443]);
 
 /**
  * Generates subscription content with enhanced error handling
@@ -3202,17 +3191,18 @@ function GenSub(userID_path, hostname, proxyIP) {
     const mainDomains = new Set([
       hostname,
       // public domains
-      "icook.hk",
-      "japan.com",
-      "malaysia.com",
-      "russia.com",
-      "singapore.com",
-      "www.visa.com",
-      "www.csgo.com",
-      "www.shopify.com",
-      "www.whatismyip.com",
-      "www.ipget.net",
+      // "icook.hk",
+      // "japan.com",
+      // "malaysia.com",
+      // "russia.com",
+      // "singapore.com",
+      // "www.visa.com",
+      // "www.csgo.com",
+      // "www.shopify.com",
+      // "www.whatismyip.com",
+      // "www.ipget.net",
       // 高频率更新
+      "cfip.xxxxxxxx.tk", // OTC大佬提供维护
       "freeyx.cloudflare88.eu.org", // 1000ip/3min
       "cloudflare.182682.xyz", // 15ip/15min
       "cfip.cfcdn.vip", // 6ip/1天
@@ -3228,7 +3218,6 @@ function GenSub(userID_path, hostname, proxyIP) {
       "cdn.tzpro.xyz", // 未知频率
       "cf.877771.xyz", // 未知频率
       "cnamefuckxxs.yuchen.icu", // 未知频率
-      "cfip.xxxxxxxx.tk", // OTC大佬提供维护
     ]);
 
     const userIDArray = userID_path.includes(",")
@@ -3243,10 +3232,10 @@ function GenSub(userID_path, hostname, proxyIP) {
       : proxyIPs;
     const randomPath = () =>
       "/" + Math.random().toString(36).substring(2, 15) + "?ed=2048";
-    const commonUrlPartHttp = `?encryption=none&security=none&fp=random&type=ws&host=${hostname}&path=${encodeURIComponent(
+    const commonUrlPartHttp = `?encryption=none&security=none&fp=ios&type=ws&host=${hostname}&path=${encodeURIComponent(
       randomPath()
     )}#`;
-    const commonUrlPartHttps = `?encryption=none&security=tls&sni=${hostname}&fp=random&type=ws&host=${hostname}&path=%2F%3Fed%3D2048#`;
+    const commonUrlPartHttps = `?encryption=none&security=tls&sni=${hostname}&fp=ios&alpn=h3%2Ch2&type=ws&host=${hostname}&path=%2F%3Fed%3D2048#`;
 
     const result = userIDArray.flatMap((userID) => {
       let allUrls = [];
