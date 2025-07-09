@@ -3240,24 +3240,24 @@ function GenSub(userID_path, hostname, proxyIP) {
     const result = userIDArray.flatMap((userID) => {
       let allUrls = [];
       // Generate main HTTP URLs first for all domains
-      if (!hostname.includes("pages.dev")) {
-        mainDomains.forEach((domain) => {
-          Array.from(HttpPort).forEach((port) => {
-            const urlPart = `${hostname.split(".")[0]}-${domain}-HTTP-${port}`;
-            const mainProtocolHttp =
-              atob(pt) +
-              "://" +
-              userID +
-              atob(at) +
-              domain +
-              ":" +
-              port +
-              commonUrlPartHttp +
-              urlPart;
-            allUrls.push(mainProtocolHttp);
-          });
-        });
-      }
+      // if (!hostname.includes("pages.dev")) {
+      //   mainDomains.forEach((domain) => {
+      //     Array.from(HttpPort).forEach((port) => {
+      //       const urlPart = `${hostname.split(".")[0]}-${domain}-HTTP-${port}`;
+      //       const mainProtocolHttp =
+      //         atob(pt) +
+      //         "://" +
+      //         userID +
+      //         atob(at) +
+      //         domain +
+      //         ":" +
+      //         port +
+      //         commonUrlPartHttp +
+      //         urlPart;
+      //       allUrls.push(mainProtocolHttp);
+      //     });
+      //   });
+      // }
 
       // Generate main HTTPS URLs for all domains
       mainDomains.forEach((domain) => {
